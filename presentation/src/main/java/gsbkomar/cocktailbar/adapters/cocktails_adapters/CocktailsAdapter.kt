@@ -1,21 +1,16 @@
 package gsbkomar.cocktailbar.adapters.cocktails_adapters
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import gsbkomar.cocktailbar.databinding.CocktailItemBinding
-import gsbkomar.cocktailbar.databinding.RecipeItemBinding
 import gsbkomar.cocktailbar.fragments.TapeCocktailsFragment
-import gsbkomar.data.models.Cocktails
-import gsbkomar.data.models.Recipe
+import gsbkomar.data.models.CocktailDto
 import javax.inject.Inject
 
 class CocktailsAdapter @Inject constructor(private val context: TapeCocktailsFragment) : RecyclerView.Adapter<CocktailsViewHolder>() {
-    private var cocktailsData: List<Cocktails> = mutableListOf()
+    private var cocktailDtoData: List<CocktailDto> = mutableListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CocktailsViewHolder {
         return CocktailsViewHolder(
@@ -27,15 +22,14 @@ class CocktailsAdapter @Inject constructor(private val context: TapeCocktailsFra
         )
     }
 
-    override fun getItemCount(): Int = cocktailsData.size
+    override fun getItemCount(): Int = cocktailDtoData.size
 
     override fun onBindViewHolder(holder: CocktailsViewHolder, position: Int) {
-        val cocktails = cocktailsData.getOrNull(position)!!
+        val cocktails = cocktailDtoData.getOrNull(position)!!
         with(holder.binding) {
             title.text = cocktails.name
-            Picasso.with(context.requireContext())
-                .load(cocktails.uri)
-                .rotate(270F)
+            Glide.with(context.requireContext())
+                .load(cocktails.photo)
                 .into(photo)
         }
     }

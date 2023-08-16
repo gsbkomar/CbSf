@@ -1,9 +1,9 @@
-package gsbkomar.cocktailbar.fragments.viewmodels
+package gsbkomar.cocktailbar.viewmodels.ui
 
 import androidx.lifecycle.ViewModel
-import gsbkomar.data.models.Cocktails
+import gsbkomar.data.models.CocktailDto
 import javax.inject.Inject
 
 class CreateCocktailFragmentViewModel @Inject constructor(private val viewModel: TapeCocktailsViewModel) : ViewModel() {
-    fun saveCocktail(cocktails: Cocktails) = viewModel.saveCocktailsInfo(cocktails)
+    fun saveCocktail(cocktailDto: CocktailDto) = viewModel.saveCocktailsInfo(cocktailDto)
 }

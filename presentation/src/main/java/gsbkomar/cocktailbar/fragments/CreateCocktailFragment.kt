@@ -11,19 +11,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import gsbkomar.cocktailbar.R
-import gsbkomar.cocktailbar.adapters.recipe_adapters.RecipeListAdapter
 import gsbkomar.cocktailbar.databinding.FragmentCreateCocktailBinding
 import gsbkomar.cocktailbar.factory.CreateCocktailViewModelFactory
-import gsbkomar.cocktailbar.fragments.viewmodels.CreateCocktailFragmentViewModel
-import gsbkomar.data.models.Cocktails
-import gsbkomar.data.models.Recipe
+import gsbkomar.cocktailbar.viewmodels.ui.CreateCocktailFragmentViewModel
+import gsbkomar.data.models.CocktailDto
 import kotlinx.coroutines.launch
 import android.app.AlertDialog
-import android.util.Log
+import com.bumptech.glide.Glide
 import gsbkomar.cocktailbar.databinding.DialogLayoutBinding
 import javax.inject.Inject
 
@@ -35,9 +31,9 @@ class CreateCocktailFragment @Inject constructor() : Fragment() {
     private var _binding: FragmentCreateCocktailBinding? = null
     private val binding get() = _binding!!
 
-    private val recipeListAdapter = RecipeListAdapter { }
-    private val recipeList: MutableList<Recipe> = mutableListOf()
-    private lateinit var newCocktailData: Cocktails
+   /* private val recipeListAdapter = RecipeListAdapter { }*/
+    private val recipeList: List<String> = listOf()
+    private lateinit var newCocktailData: CocktailDto
 
     @Inject
     lateinit var createCocktailFragmentFactory: CreateCocktailViewModelFactory
@@ -59,8 +55,8 @@ class CreateCocktailFragment @Inject constructor() : Fragment() {
 
             btnSave.setOnClickListener {
                 if (checkIsBlanck()) {
-                    newCocktailData = Cocktails(
-                        uri = dataUri,
+                    newCocktailData = CocktailDto(
+                        photo = dataUri,
                         name = title.text.toString(),
                         description = descriptionEditText.text.toString(),
                         ingredients = recipeList,
@@ -88,7 +84,7 @@ class CreateCocktailFragment @Inject constructor() : Fragment() {
 
             // recipeList.add(Recipe(recipeEditText.te))
         }
-
+/*
         with(binding.rcRecipe) {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -97,7 +93,7 @@ class CreateCocktailFragment @Inject constructor() : Fragment() {
 
         lifecycleScope.launch {
             recipeListAdapter.submitList(recipeList)
-        }
+        }*/
     }
 
 
@@ -116,9 +112,8 @@ class CreateCocktailFragment @Inject constructor() : Fragment() {
         val uri = data?.data
         dataUri = uri!!
 
-        Picasso.with(requireContext())
+        Glide.with(requireContext())
             .load(uri)
-            .rotate(270F)
             .into(binding.rectangle1)
     }
 

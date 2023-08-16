@@ -1,13 +1,12 @@
 package gsbkomar.cocktailbar.adapters.recipe_adapters
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import gsbkomar.cocktailbar.databinding.RecipeItemBinding
-import gsbkomar.data.models.Recipe
 import javax.inject.Inject
 
+/*
 class RecipeAdapter @Inject constructor() : RecyclerView.Adapter<RecipeViewHolder>() {
     private var recipeData: List<Recipe> = mutableListOf()
 
@@ -31,4 +30,4 @@ class RecipeAdapter @Inject constructor() : RecyclerView.Adapter<RecipeViewHolde
     }
 }
 
-class RecipeViewHolder(val binding: RecipeItemBinding) : RecyclerView.ViewHolder(binding.root)
+class RecipeViewHolder(val binding: RecipeItemBinding) : RecyclerView.ViewHolder(binding.root)*/

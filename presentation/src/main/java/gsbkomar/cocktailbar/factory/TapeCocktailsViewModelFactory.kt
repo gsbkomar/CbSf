@@ -2,7 +2,7 @@ package gsbkomar.cocktailbar.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import gsbkomar.cocktailbar.fragments.viewmodels.TapeCocktailsViewModel
+import gsbkomar.cocktailbar.viewmodels.ui.TapeCocktailsViewModel
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
