@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -81,26 +82,22 @@ class TapeCocktailsFragment @Inject constructor() : Fragment() {
         binding.rcCocktails.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rcCocktails.adapter = cocktailsListAdapter
 
-        lifecycleScope.launch {
-            cocktailsListAdapter.submitList(cocktails)
-        }
+        setTapeInfo()
 
     }
 
     private suspend fun refreshCocktailsInfo() {
-        with(binding) {
-            db.dao.upsert(
-                CocktailDto(
-                    name = newCocktailDto?.name ?: "",
-                    description = newCocktailDto?.description ?: "",
-                    ingredients = newCocktailDto?.ingredients,
-                    photo = newCocktailDto?.name.toString(),
-                    recipe = newCocktailDto?.recipe ?: ""
-                )
+        db.dao.upsert(
+            CocktailDto(
+                name = newCocktailDto?.name ?: "",
+                description = newCocktailDto?.description ?: "",
+                // ingredients = newCocktailDto?.ingredients,
+                photo = newCocktailDto?.photo.toString(),
+                recipe = newCocktailDto?.recipe ?: ""
             )
-        }
-
+        )
         setTapeInfo()
+        newCocktailDto = null
     }
 
     fun saveInfo(info: CocktailDto) {
@@ -109,6 +106,7 @@ class TapeCocktailsFragment @Inject constructor() : Fragment() {
 
     private fun setTapeInfo() {
         lifecycleScope.launch {
+            cocktails = db.dao.getAll()
             cocktailsListAdapter.submitList(cocktails)
         }
     }

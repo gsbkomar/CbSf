@@ -19,7 +19,12 @@ import gsbkomar.cocktailbar.viewmodels.ui.CreateCocktailFragmentViewModel
 import gsbkomar.data.models.CocktailDto
 import kotlinx.coroutines.launch
 import android.app.AlertDialog
+import android.graphics.Color
+import android.provider.CalendarContract.Colors
+import androidx.core.widget.doOnTextChanged
 import com.bumptech.glide.Glide
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import gsbkomar.cocktailbar.databinding.DialogLayoutBinding
 import javax.inject.Inject
 
@@ -50,40 +55,28 @@ class CreateCocktailFragment @Inject constructor() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        with(binding) {
-            rectangle1.setOnClickListener { openGallery() }
+        initListeners()
 
-            btnSave.setOnClickListener {
-                if (checkIsBlanck()) {
-                    newCocktailData = CocktailDto(
-                        photo = dataUri,
-                        name = title.text.toString(),
-                        description = descriptionEditText.text.toString(),
-                        ingredients = recipeList,
-                        recipe = recipeEditText.text.toString()
-                    )
-                    findNavController().navigate(R.id.action_createCocktailFragment_to_tapeCocktailsFragment)
-                    viewModel.saveCocktail(newCocktailData)
-                } else Toast.makeText(requireContext(), "Cocktail form empty", Toast.LENGTH_SHORT)
-                    .show()
-            }
+            with(binding) {
+                lifecycleScope.launch {
+                    setErrorEnabled(textField, title)
+                    setErrorEnabled(description, descriptionEditText)
+                    setErrorEnabled(recipe, recipeEditText)
+                }
+                title.doOnTextChanged  { text, start, before, count ->
+                    setErrorEnabled(textField, title)
+                }
+                descriptionEditText.doOnTextChanged { text, start, before, count ->
+                    setErrorEnabled(description, descriptionEditText)
+                }
+                recipeEditText.doOnTextChanged { text, start, before, count ->
+                    setErrorEnabled(recipe, recipeEditText)
+                }
 
-            btnAddRecipe.setOnClickListener {
-                val alertDialog = AlertDialog.Builder(requireContext())
-                    .setTitle("")
-                    .setView(R.layout.dialog_layout)
-                    .setOnCancelListener { dialog ->
-                        with(DialogLayoutBinding.inflate(layoutInflater).root) {
-                            btnSave.setOnClickListener {
-                                dialog.cancel()
-                            }
-                        }
-                    }
-                     alertDialog.show()
-            }
+        }
+
 
             // recipeList.add(Recipe(recipeEditText.te))
-        }
 /*
         with(binding.rcRecipe) {
             layoutManager =
@@ -96,6 +89,53 @@ class CreateCocktailFragment @Inject constructor() : Fragment() {
         }*/
     }
 
+    private fun setErrorEnabled(layout: TextInputLayout, editText: TextInputEditText) {
+        if (editText.text?.isBlank() == true) {
+            layout.error = "Add title"
+            editText.setHintTextColor(Color.RED)
+        } else {
+            layout.isErrorEnabled = false
+            editText.setHintTextColor(Color.GRAY)
+        }
+    }
+
+
+    private fun initListeners() = with(binding) {
+
+        cvPhoto.setOnClickListener {
+            openGallery()
+        }
+
+        btnSave.setOnClickListener {
+            if (checkIsBlanck()) {
+                newCocktailData = CocktailDto(
+                    name = title.text.toString(),
+                    description = descriptionEditText.text.toString(),
+                    /*ingredients = recipeList,*/
+                    recipe = recipeEditText.text.toString(),
+                    photo = dataUri.toString()
+                )
+                Toast.makeText(requireContext(), dataUri.toString(), Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_createCocktailFragment_to_tapeCocktailsFragment)
+                viewModel.saveCocktail(newCocktailData)
+            } else Toast.makeText(requireContext(), "Cocktail form empty", Toast.LENGTH_SHORT)
+                .show()
+        }
+
+        btnAddRecipe.setOnClickListener {
+            val alertDialog = AlertDialog.Builder(requireContext())
+                .setTitle("")
+                .setView(R.layout.dialog_layout)
+                .setOnCancelListener { dialog ->
+                    with(DialogLayoutBinding.inflate(layoutInflater).root) {
+                        btnSave.setOnClickListener {
+                            dialog.cancel()
+                        }
+                    }
+                }
+            alertDialog.show()
+        }
+    }
 
     private fun checkIsBlanck(): Boolean = with(binding) {
         if (title.text?.isNotEmpty() == true && descriptionEditText.text?.isNotEmpty() == true && recipeEditText.text?.isNotEmpty() == true) return true else false
@@ -111,10 +151,12 @@ class CreateCocktailFragment @Inject constructor() : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         val uri = data?.data
         dataUri = uri!!
-
+        Toast.makeText(requireContext(), dataUri.toString(), Toast.LENGTH_SHORT).show()
         Glide.with(requireContext())
             .load(uri)
-            .into(binding.rectangle1)
+            .into(binding.photo)
+
+        binding.iconCamera.visibility = View.INVISIBLE
     }
 
     override fun onDestroyView() {

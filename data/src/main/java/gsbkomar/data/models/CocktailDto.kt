@@ -13,14 +13,13 @@ data class CocktailDto(
     override val description: String,
     override val recipe: String,
     @PrimaryKey(autoGenerate = true)
-    override val id: Int = 0
+    override val id: Int = 0,
+    override val photo: String
 ) : Cocktail {
-    override var photo = ""
-        get() = ""
 
-    @get:SerializedName("ingredients")
+   /* @get:SerializedName("ingredients")
     override var ingredients: List<String> = listOf()
-    get() = listOf()
+    get() = listOf()*/
 
     @TypeConverter
     fun convertToString(value: String?): Uri? {

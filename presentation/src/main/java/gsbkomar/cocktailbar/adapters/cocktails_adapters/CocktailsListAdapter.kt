@@ -1,7 +1,9 @@
 package gsbkomar.cocktailbar.adapters.cocktails_adapters
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
@@ -29,11 +31,12 @@ class CocktailsListAdapter @Inject constructor(
     override fun onBindViewHolder(holder: CocktailsViewHolder, position: Int) {
         val item = getItem(position)
         this.position = position
+        val photoUri = item.photo.toUri()
 
         with(holder.binding) {
             title.text = item.name
             Glide.with(context.requireContext())
-                .load(item.photo)
+                .load(photoUri)
                 .into(photo)
         }
 

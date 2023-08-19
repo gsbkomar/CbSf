@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_myCocktailsFragment_to_createCocktailFragment"
             app:destination="@id/createCocktailFragment" />
+        <action
+            android:id="@+id/action_myCocktailsFragment_to_tapeCocktailsFragment"
+            app:destination="@id/tapeCocktailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -61,6 +64,9 @@
         <action
             android:id="@+id/action_tapeCocktailsFragment_to_createCocktailFragment"
             app:destination="@id/createCocktailFragment" />
+        <action
+            android:id="@+id/action_tapeCocktailsFragment_to_myCocktailsFragment"
+            app:destination="@id/myCocktailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/editCocktailFragment"

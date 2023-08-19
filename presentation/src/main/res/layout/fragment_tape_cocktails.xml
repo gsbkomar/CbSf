@@ -19,16 +19,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_cocktails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ScrollView
+        app:layout_constraintTop_toBottomOf="@id/app_title"
         android:layout_marginStart="16dp"
         android:layout_marginTop="26dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toBottomOf="@id/app_title"
-        tools:itemCount="9"
-        tools:listitem="@layout/cocktail_item" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_cocktails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:itemCount="9"
+            tools:listitem="@layout/cocktail_item" />
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

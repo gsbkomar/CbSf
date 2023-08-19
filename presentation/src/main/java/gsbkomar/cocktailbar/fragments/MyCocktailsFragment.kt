@@ -25,13 +25,21 @@ class MyCocktailsFragment @Inject constructor() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.group1.setOnClickListener {
-           findNavController().navigate(R.id.action_myCocktailsFragment_to_createCocktailFragment)
-        }
+
+        initListeners()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun initListeners() = with(binding) {
+        group1.setOnClickListener {
+            findNavController().navigate(R.id.action_myCocktailsFragment_to_createCocktailFragment)
+        }
+        btnTape.setOnClickListener {
+            findNavController().navigate(R.id.action_myCocktailsFragment_to_tapeCocktailsFragment)
+        }
     }
 }

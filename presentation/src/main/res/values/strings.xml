@@ -9,12 +9,13 @@
     <string name="cancel">Cancel</string>
     <string name="description">Description</string>
     <string name="recipe">Recipe</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="cocktail_ti">Add ingredient\n</string>
     <string name="ingredient_s_name">Ingredient\'s name</string>
     <string name="add_title">Add title</string>
     <string name="edit">Edit</string>
-
+    <string name="title">Title</string>
+    <string name="cocktail_description">Cocktail description</string>
+    <string name="cocktail_recipe">Cocktail recipe</string>
 
 </resources>

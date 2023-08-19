@@ -40,9 +40,9 @@ class CocktailViewModel(
                 val cocktail = CocktailDto(
                     name = name,
                     description = description,
-                    ingredients = ingredients,
-                    photo = photo,
-                    recipe = recipe
+                   // ingredients = ingredients,
+                    recipe = recipe,
+                    photo = photo.toString()
                 )
 
                 viewModelScope.launch {

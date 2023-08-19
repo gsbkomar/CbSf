@@ -1,7 +1,9 @@
 package gsbkomar.cocktailbar.adapters.cocktails_adapters
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import gsbkomar.cocktailbar.databinding.CocktailItemBinding
@@ -26,10 +28,12 @@ class CocktailsAdapter @Inject constructor(private val context: TapeCocktailsFra
 
     override fun onBindViewHolder(holder: CocktailsViewHolder, position: Int) {
         val cocktails = cocktailDtoData.getOrNull(position)!!
+        val photoUri = cocktails.photo.toUri()
+            //Uri.parse(cocktails.photo)
         with(holder.binding) {
             title.text = cocktails.name
             Glide.with(context.requireContext())
-                .load(cocktails.photo)
+                .load(photoUri)
                 .into(photo)
         }
     }

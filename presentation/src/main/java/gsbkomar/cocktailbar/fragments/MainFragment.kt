@@ -29,6 +29,15 @@ class MainFragment @Inject constructor() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initListeners()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    private fun initListeners() {
         with(binding.lottieLoading) {
             setAnimation(R.raw.lottie_loading)
             playAnimation()
@@ -38,10 +47,5 @@ class MainFragment @Inject constructor() : Fragment() {
             delay(1000)
             findNavController().navigate(R.id.action_mainFragment_to_myCocktailsFragment)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
