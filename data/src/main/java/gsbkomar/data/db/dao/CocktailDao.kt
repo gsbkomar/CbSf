@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
 import gsbkomar.data.models.CocktailDto
+import gsbkomar.data.models.IngredientDto
 
 @Dao
 interface CocktailDao {
@@ -17,4 +18,7 @@ interface CocktailDao {
 
     @Query("SELECT * FROM CocktailDto")
     suspend fun getAll() : List<CocktailDto>
+
+    @Query("SELECT * FROM CocktailDto WHERE id=:id")
+    suspend fun getById(id: Int) : CocktailDto
 }

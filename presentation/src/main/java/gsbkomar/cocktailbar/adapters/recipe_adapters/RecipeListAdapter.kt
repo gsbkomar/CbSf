@@ -5,12 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import gsbkomar.cocktailbar.databinding.RecipeItemBinding
+import gsbkomar.data.models.IngredientDto
 import javax.inject.Inject
 
-/*
+
 class RecipeListAdapter @Inject constructor(
     private val onClick: (item: Int) -> Unit
-) : ListAdapter<RecipeDto, RecipeViewHolder>(DifUtilCallBack())    {
+) : ListAdapter<IngredientDto, RecipeViewHolder>(DifUtilCallBack())    {
 
     var position: Int = 0
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeViewHolder {
@@ -28,25 +29,28 @@ class RecipeListAdapter @Inject constructor(
         this.position = position
 
         with(holder.binding) {
-            tvRecipe.text = item.name
+            tvRecipe.text = item.ingredient
+            btnDeleteRecipe.setOnClickListener {
+                onClick(position)
+            }
         }
 
-        holder.binding.root.setOnClickListener { onClick(position) }
+       // holder.binding.root.setOnClickListener { onClick(position) }
     }
 }
 
-class DifUtilCallBack : DiffUtil.ItemCallback<Recipe>() {
+class DifUtilCallBack : DiffUtil.ItemCallback<IngredientDto>() {
     override fun areItemsTheSame(
-        oldItem: Recipe,
-        newItem: Recipe
+        oldItem: IngredientDto,
+        newItem: IngredientDto
     ): Boolean {
-        return oldItem.name == newItem.name
+        return oldItem.ingredient == newItem.ingredient
     }
 
     override fun areContentsTheSame(
-        oldItem: Recipe,
-        newItem: Recipe
+        oldItem: IngredientDto,
+        newItem: IngredientDto
     ): Boolean {
         return oldItem == newItem
     }
-}*/
+}

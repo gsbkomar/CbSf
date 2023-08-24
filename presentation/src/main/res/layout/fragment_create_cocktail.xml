@@ -91,8 +91,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/description_edit_text"
-                android:layout_width="match_parent"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:layout_gravity="center"
                 android:gravity="top"
@@ -103,11 +103,15 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <LinearLayout
+        <ScrollView
             android:id="@+id/scroll_recipe"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginTop="20dp"
+            android:fillViewport="true"
+            android:maxWidth="330dp"
+            app:layout_constraintWidth_max="330dp"
+            android:layout_marginStart="15dp"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/description">
@@ -115,15 +119,15 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rc_recipe"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:itemCount="13"
+                tools:itemCount="3"
                 tools:listitem="@layout/recipe_item" />
 
-        </LinearLayout>
+        </ScrollView>
 
         <ImageButton
             android:id="@+id/btn_add_recipe"
@@ -137,28 +141,28 @@
 
         <com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/recipe"
-            android:hint="@string/description"
-            app:boxCornerRadiusBottomEnd="28dp"
-            app:boxCornerRadiusBottomStart="28dp"
-            app:boxCornerRadiusTopEnd="28dp"
-            app:boxCornerRadiusTopStart="28dp"
-            app:expandedHintEnabled="false"
-            app:hintTextAppearance="@style/text_hint_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="184dp"
             android:layout_gravity="center"
             android:layout_marginStart="16dp"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="16dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="@string/description"
+            app:boxCornerRadiusBottomEnd="28dp"
+            app:boxCornerRadiusBottomStart="28dp"
+            app:boxCornerRadiusTopEnd="28dp"
+            app:boxCornerRadiusTopStart="28dp"
+            app:expandedHintEnabled="false"
             app:helperText="@string/supporting_description"
+            app:hintTextAppearance="@style/text_hint_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/scroll_recipe">
 
             <com.google.android.material.textfield.TextInputEditText
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:id="@+id/recipe_edit_text"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 android:gravity="top"

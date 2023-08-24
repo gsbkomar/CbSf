@@ -18,14 +18,17 @@ import gsbkomar.cocktailbar.factory.CreateCocktailViewModelFactory
 import gsbkomar.cocktailbar.viewmodels.ui.CreateCocktailFragmentViewModel
 import gsbkomar.data.models.CocktailDto
 import kotlinx.coroutines.launch
-import android.app.AlertDialog
 import android.graphics.Color
-import android.provider.CalendarContract.Colors
+import android.util.Log
 import androidx.core.widget.doOnTextChanged
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import gsbkomar.cocktailbar.databinding.DialogLayoutBinding
+import gsbkomar.cocktailbar.adapters.recipe_adapters.RecipeListAdapter
+import gsbkomar.data.db.CocktailsDataBase
+import gsbkomar.data.models.IngredientDto
 import javax.inject.Inject
 
 private var dataUri: Uri? = null
@@ -36,8 +39,21 @@ class CreateCocktailFragment @Inject constructor() : Fragment() {
     private var _binding: FragmentCreateCocktailBinding? = null
     private val binding get() = _binding!!
 
-   /* private val recipeListAdapter = RecipeListAdapter { }*/
-    private val recipeList: List<String> = listOf()
+    private val cocktailDb by lazy {
+        Room.databaseBuilder(
+            requireContext(),
+            CocktailsDataBase::class.java,
+            "cocktails.db"
+        ).build()
+    }
+
+    private lateinit var newIngredientData: IngredientDto
+    private val recipeListAdapter = RecipeListAdapter {
+        ingredientDtoList.removeAt(it)
+        setIngredientsList()
+    }
+
+    private var ingredientDtoList: MutableList<IngredientDto> = mutableListOf()
     private lateinit var newCocktailData: CocktailDto
 
     @Inject
@@ -54,52 +70,59 @@ class CreateCocktailFragment @Inject constructor() : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initListeners()
 
-            with(binding) {
-                lifecycleScope.launch {
-                    setErrorEnabled(textField, title)
-                    setErrorEnabled(description, descriptionEditText)
-                    setErrorEnabled(recipe, recipeEditText)
-                }
-                title.doOnTextChanged  { text, start, before, count ->
-                    setErrorEnabled(textField, title)
-                }
-                descriptionEditText.doOnTextChanged { text, start, before, count ->
-                    setErrorEnabled(description, descriptionEditText)
-                }
-                recipeEditText.doOnTextChanged { text, start, before, count ->
-                    setErrorEnabled(recipe, recipeEditText)
-                }
 
+        with(binding) {
+            lifecycleScope.launch {
+                setErrorEnabled(textField, title)
+                setErrorEnabled(description, descriptionEditText)
+                setErrorEnabled(recipe, recipeEditText)
+            }
+            title.doOnTextChanged { text, start, before, count ->
+                setErrorEnabled(textField, title)
+            }
+            descriptionEditText.doOnTextChanged { text, start, before, count ->
+                setErrorEnabled(description, descriptionEditText)
+            }
+            recipeEditText.doOnTextChanged { text, start, before, count ->
+                setErrorEnabled(recipe, recipeEditText)
+            }
+            setIngredientsList()
         }
+    }
+    fun saveInfo(ingredientDto: IngredientDto) {
+        newIngredientData = ingredientDto
+    }
 
-
-            // recipeList.add(Recipe(recipeEditText.te))
-/*
+    private fun setIngredientsList() {
         with(binding.rcRecipe) {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             adapter = recipeListAdapter
         }
-
         lifecycleScope.launch {
-            recipeListAdapter.submitList(recipeList)
-        }*/
+           // val id = cocktailDb.cocktailDao.getAll().get(cocktailDb.cocktailDao.getAll().size-1)
+            //ingredientDtoList = cocktailDb.ingredientDao.getIngredientsByCocktailId(id.id.toLong())
+            //cocktailDb.ingredientDao.getIngredientsByCocktailId(id.id.toLong())
+            recipeListAdapter.submitList(ingredientDtoList)
+        }
+    }
+
+    fun testing(string: String) {
+        ingredientDtoList.add(IngredientDto(string))
+        setIngredientsList()
     }
 
     private fun setErrorEnabled(layout: TextInputLayout, editText: TextInputEditText) {
         if (editText.text?.isBlank() == true) {
-            layout.error = "Add title"
+            layout.isErrorEnabled = true
             editText.setHintTextColor(Color.RED)
         } else {
             layout.isErrorEnabled = false
             editText.setHintTextColor(Color.GRAY)
         }
     }
-
-
     private fun initListeners() = with(binding) {
 
         cvPhoto.setOnClickListener {
@@ -107,37 +130,39 @@ class CreateCocktailFragment @Inject constructor() : Fragment() {
         }
 
         btnSave.setOnClickListener {
-            if (checkIsBlanck()) {
-                newCocktailData = CocktailDto(
-                    name = title.text.toString(),
-                    description = descriptionEditText.text.toString(),
-                    /*ingredients = recipeList,*/
-                    recipe = recipeEditText.text.toString(),
-                    photo = dataUri.toString()
-                )
-                Toast.makeText(requireContext(), dataUri.toString(), Toast.LENGTH_SHORT).show()
+            if (checkIsBlank()) {
+                lifecycleScope.launch {
+                    newCocktailData = CocktailDto(
+                        name = title.text.toString(),
+                        description = descriptionEditText.text.toString(),
+                        recipe = recipeEditText.text.toString(),
+                        photo = dataUri.toString(),
+                    )
+                    cocktailDb.cocktailDao.upsert(newCocktailData)
+                }
                 findNavController().navigate(R.id.action_createCocktailFragment_to_tapeCocktailsFragment)
-                viewModel.saveCocktail(newCocktailData)
+               // viewModel.saveCocktail(newCocktailData)
             } else Toast.makeText(requireContext(), "Cocktail form empty", Toast.LENGTH_SHORT)
                 .show()
+            /*lifecycleScope.launch {
+               // TODO db.dao.
+            }*/
+            btnCancel.setOnClickListener {
+                findNavController().navigate(R.id.action_createCocktailFragment_to_myCocktailsFragment)
+            }
         }
 
         btnAddRecipe.setOnClickListener {
-            val alertDialog = AlertDialog.Builder(requireContext())
-                .setTitle("")
-                .setView(R.layout.dialog_layout)
-                .setOnCancelListener { dialog ->
-                    with(DialogLayoutBinding.inflate(layoutInflater).root) {
-                        btnSave.setOnClickListener {
-                            dialog.cancel()
-                        }
-                    }
-                }
-            alertDialog.show()
+            showAddIngredientDialog()
         }
     }
 
-    private fun checkIsBlanck(): Boolean = with(binding) {
+    private fun showAddIngredientDialog() {
+        val dialogFragment = AddIngredientDialogFragment(this)
+        dialogFragment.show(parentFragmentManager, null)
+    }
+
+    private fun checkIsBlank(): Boolean = with(binding) {
         if (title.text?.isNotEmpty() == true && descriptionEditText.text?.isNotEmpty() == true && recipeEditText.text?.isNotEmpty() == true) return true else false
     }
 

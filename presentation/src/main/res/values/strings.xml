@@ -17,5 +17,9 @@
     <string name="title">Title</string>
     <string name="cocktail_description">Cocktail description</string>
     <string name="cocktail_recipe">Cocktail recipe</string>
+    <string name="name">Name</string>
+    <string name="add_ingredient_name">Add ingredient name</string>
+    <string name="ingredient_name">Ingredient name</string>
+    <string name="add">Add</string>
 
 </resources>

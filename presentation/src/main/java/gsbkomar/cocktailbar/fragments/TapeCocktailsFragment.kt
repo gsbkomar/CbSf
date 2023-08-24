@@ -20,7 +20,9 @@ import gsbkomar.cocktailbar.factory.TapeCocktailsViewModelFactory
 import gsbkomar.cocktailbar.viewmodels.ui.TapeCocktailsViewModel
 import gsbkomar.data.db.CocktailsDataBase
 import gsbkomar.data.models.CocktailDto
+import gsbkomar.data.models.IngredientDto
 import kotlinx.coroutines.launch
+import java.text.CollationKey
 import javax.inject.Inject
 
 
@@ -67,7 +69,7 @@ class TapeCocktailsFragment @Inject constructor() : Fragment() {
         cocktailsListAdapter = CocktailsListAdapter(this) {}
 
         lifecycleScope.launch {
-            cocktails = db.dao.getAll()
+            cocktails = db.cocktailDao.getAll()
         }
 
         if (newCocktailDto == null) {
@@ -87,7 +89,7 @@ class TapeCocktailsFragment @Inject constructor() : Fragment() {
     }
 
     private suspend fun refreshCocktailsInfo() {
-        db.dao.upsert(
+        db.cocktailDao.upsert(
             CocktailDto(
                 name = newCocktailDto?.name ?: "",
                 description = newCocktailDto?.description ?: "",
@@ -104,9 +106,31 @@ class TapeCocktailsFragment @Inject constructor() : Fragment() {
         newCocktailDto = info
     }
 
+    fun deleteInfo(info: IngredientDto) {
+        lifecycleScope.launch {
+            db.ingredientDao.delete(info)
+        }
+    }
+
+    fun getCocktailById() : CocktailDto? {
+        var cocktailDto: CocktailDto? = null
+        lifecycleScope.launch {
+            cocktailDto = db.cocktailDao.getById(db.cocktailDao.getAll().last().id)
+        }
+        return cocktailDto
+    }
+
+    fun getInfo(info: CocktailDto) : List<IngredientDto> {
+        var ingredients: List<IngredientDto> = listOf()
+        lifecycleScope.launch {
+          ingredients = db.ingredientDao.getIngredientsByCocktailId(info.id.toLong())
+        }
+        return ingredients
+    }
+
     private fun setTapeInfo() {
         lifecycleScope.launch {
-            cocktails = db.dao.getAll()
+            cocktails = db.cocktailDao.getAll()
             cocktailsListAdapter.submitList(cocktails)
         }
     }
