@@ -1,12 +1,13 @@
 Приложение для любителей коктейля. 
 
 ##### Функционал:
-- Можно изменить фото коктейля, выбрав фотографию из галереи -
-<img src="https://github.com/gsbkomar/CbSf/assets/103882557/de61970e-797f-42cd-8909-7a2a0dcbb8d7" width="250" height="450"/>
 
-- Создание коктейля (В разработке)
-  
-![a5dfcb18239fc9940d5d57867593aa7c](https://github.com/gsbkomar/CbSf/assets/103882557/359dc75d-1106-4f6d-b2b9-8b1e5775925f)
+- Можно изменить фото коктейля, выбрав фотографию из галереи -
+<img src="https://github.com/gsbkomar/CbSf/assets/103882557/00784534-84df-44e8-a083-3aaa07998128" width="250" height="550"/>
+
+- Создание коктейля
+
+<img src="https://github.com/gsbkomar/CbSf/assets/103882557/5dafacaa-4c90-46d3-aade-5112720763ae" width="250" height="550"/>
 
 - Редактирование и удаление коктейля (В разработке)
   
