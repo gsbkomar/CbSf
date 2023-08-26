@@ -1,17 +1,25 @@
 Приложение для любителей коктейля. 
 
+##### Схема приложения:
+
+<img src="https://github.com/gsbkomar/CbSf/assets/103882557/31c06029-0443-417f-b710-85bea9652e45" width="550" height="850"/>
+
 ##### Функционал:
 
-- Можно изменить фото коктейля, выбрав фотографию из галереи -
-<img src="https://github.com/gsbkomar/CbSf/assets/103882557/00784534-84df-44e8-a083-3aaa07998128" width="250" height="550"/>
+- Можно изменить фото коктейля, выбрав фотографию из галереи
+  
+  <img src="https://github.com/gsbkomar/CbSf/assets/103882557/00784534-84df-44e8-a083-3aaa07998128" width="250" height="550"/>
+
 
 - Создание коктейля
 
-<img src="https://github.com/gsbkomar/CbSf/assets/103882557/5dafacaa-4c90-46d3-aade-5112720763ae" width="250" height="550"/>
+   <img src="https://github.com/gsbkomar/CbSf/assets/103882557/5dafacaa-4c90-46d3-aade-5112720763ae" width="250" height="550"/>
+
 
 - Редактирование коктейля
 
-<img src="https://github.com/gsbkomar/CbSf/assets/103882557/2652ad43-e0e4-4641-959e-bd0121768f4e" width="250" height="450"/> 
+   <img src="https://github.com/gsbkomar/CbSf/assets/103882557/2652ad43-e0e4-4641-959e-bd0121768f4e" width="250" height="450"/> 
+
 
 ##### Технические детали реализации:
 - Для сохранения данных используется SQLite, библиотека Room.
@@ -21,6 +29,8 @@
 - Работа с DI - Dagger Hilt
 
 - Анимации - Lottie
+
+- Состояния - StateFlow
 
 - Для верстки UI используется View
 
