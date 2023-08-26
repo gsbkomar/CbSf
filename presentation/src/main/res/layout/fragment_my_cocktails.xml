@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.MyCocktailsFragment">
+    tools:context=".fragments.welcome_coctails.MyCocktailsFragment">
 
    <ImageView
        android:id="@+id/iv_avatar"
@@ -35,8 +35,9 @@
         app:layout_constraintEnd_toEndOf="@id/app_title"
         app:layout_constraintStart_toStartOf="@id/app_title"
         app:layout_constraintTop_toBottomOf="@id/app_title"
+        app:layout_constraintBottom_toBottomOf="parent"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/frame_32"
+        android:id="@+id/container"
         android:layout_width="130dp"
         android:layout_height="185dp"
         android:layout_alignParentLeft="true"
@@ -86,14 +87,5 @@
         </RelativeLayout>
 
     </RelativeLayout>
-
-    <Button
-        android:id="@+id/btn_tape"
-        android:text="tape"
-        android:layout_margin="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_width="80dp"
-        android:layout_height="80dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

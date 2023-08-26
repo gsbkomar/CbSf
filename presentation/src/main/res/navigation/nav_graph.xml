@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/myCocktailsFragment"
-        android:name="gsbkomar.cocktailbar.fragments.MyCocktailsFragment"
+        android:name="gsbkomar.cocktailbar.fragments.welcome_coctails.MyCocktailsFragment"
         android:label="fragment_my_cocktails"
         tools:layout="@layout/fragment_my_cocktails" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="gsbkomar.cocktailbar.fragments.MainFragment"
+        android:name="gsbkomar.cocktailbar.fragments.main_cocktails.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/createCocktailFragment"
-        android:name="gsbkomar.cocktailbar.fragments.CreateCocktailFragment"
+        android:name="gsbkomar.cocktailbar.fragments.create_cocktail.CreateCocktailFragment"
         android:label="fragment_create_cocktail"
         tools:layout="@layout/fragment_create_cocktail" >
         <action
@@ -40,22 +40,25 @@
         <action
             android:id="@+id/action_createCocktailFragment_to_tapeCocktailsFragment"
             app:destination="@id/tapeCocktailsFragment" />
+        <action
+            android:id="@+id/action_createCocktailFragment_to_cocktailDetailsFragment"
+            app:destination="@id/cocktailDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/cocktailDetailsFragment"
-        android:name="gsbkomar.cocktailbar.fragments.CocktailDetailsFragment"
+        android:name="gsbkomar.cocktailbar.fragments.details_cocktail.CocktailDetailsFragment"
         android:label="fragment_cocktail_details"
         tools:layout="@layout/fragment_cocktail_details" >
         <action
-            android:id="@+id/action_cocktailDetailsFragment_to_editCocktailFragment"
-            app:destination="@id/editCocktailFragment" />
-        <action
             android:id="@+id/action_cocktailDetailsFragment_to_tapeCocktailsFragment"
             app:destination="@id/tapeCocktailsFragment" />
+        <action
+            android:id="@+id/action_cocktailDetailsFragment_to_createCocktailFragment"
+            app:destination="@id/createCocktailFragment" />
     </fragment>
     <fragment
         android:id="@+id/tapeCocktailsFragment"
-        android:name="gsbkomar.cocktailbar.fragments.TapeCocktailsFragment"
+        android:name="gsbkomar.cocktailbar.fragments.tape_cocktails.TapeCocktailsFragment"
         android:label="fragment_tape_cocktails"
         tools:layout="@layout/fragment_tape_cocktails" >
         <action
@@ -67,14 +70,5 @@
         <action
             android:id="@+id/action_tapeCocktailsFragment_to_myCocktailsFragment"
             app:destination="@id/myCocktailsFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/editCocktailFragment"
-        android:name="gsbkomar.cocktailbar.fragments.EditCocktailFragment"
-        android:label="fragment_edit_cocktail"
-        tools:layout="@layout/fragment_edit_cocktail" >
-        <action
-            android:id="@+id/action_editCocktailFragment_to_cocktailDetailsFragment"
-            app:destination="@id/cocktailDetailsFragment" />
     </fragment>
 </navigation>

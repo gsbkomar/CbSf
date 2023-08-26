@@ -4,11 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.CreateCocktailFragment">
+    tools:context=".fragments.create_cocktail.CreateCocktailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_loading"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_photo"
@@ -148,7 +155,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="16dp"
-            android:hint="@string/description"
+            android:hint="@string/recipe"
             app:boxCornerRadiusBottomEnd="28dp"
             app:boxCornerRadiusBottomStart="28dp"
             app:boxCornerRadiusTopEnd="28dp"
