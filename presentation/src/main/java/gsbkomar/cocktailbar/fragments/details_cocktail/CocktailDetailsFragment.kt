@@ -5,11 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import gsbkomar.cocktailbar.R
 import gsbkomar.cocktailbar.State
 import gsbkomar.cocktailbar.databinding.FragmentCocktailDetailsBinding
+import gsbkomar.cocktailbar.extensions.setBackPressed
 import gsbkomar.cocktailbar.factory.CocktailDetailsViewModelFactory
 import gsbkomar.cocktailbar.fragments.details_cocktail.adapter.IngredientDetailsListAdapter
 import gsbkomar.domain.models.Cocktail
@@ -32,8 +31,6 @@ class CocktailDetailsFragment @Inject constructor() : Fragment() {
     private var _binding: FragmentCocktailDetailsBinding? = null
     private val binding get() = _binding!!
 
-    private var position = 1
-
     private lateinit var cocktail: List<Cocktail>
     private lateinit var ingredients: List<String>
 
@@ -42,6 +39,7 @@ class CocktailDetailsFragment @Inject constructor() : Fragment() {
     private val viewModel: CocktailDetailsViewModel by viewModels { viewModelFactory }
 
     private val ingredientListAdapter = IngredientDetailsListAdapter()
+    private var position = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,17 +56,11 @@ class CocktailDetailsFragment @Inject constructor() : Fragment() {
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true /* enabled by default */) {
-                override fun handleOnBackPressed() {
-                    findNavController().navigate(R.id.action_cocktailDetailsFragment_to_tapeCocktailsFragment)
-                }
-            }
-
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+        setBackPressed(R.id.action_cocktailDetailsFragment_to_tapeCocktailsFragment)
 
         checkStateInfo()
 

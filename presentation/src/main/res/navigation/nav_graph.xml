@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/myCocktailsFragment"
-        android:name="gsbkomar.cocktailbar.fragments.welcome_coctails.MyCocktailsFragment"
+        android:name="gsbkomar.cocktailbar.fragments.welcome_cocktails.GreetingsFragment"
         android:label="fragment_my_cocktails"
-        tools:layout="@layout/fragment_my_cocktails" >
+        tools:layout="@layout/fragment_greetings" >
         <action
             android:id="@+id/action_myCocktailsFragment_to_createCocktailFragment"
             app:destination="@id/createCocktailFragment" />

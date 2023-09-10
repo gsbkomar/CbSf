@@ -2,7 +2,6 @@ package gsbkomar.cocktailbar.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import gsbkomar.cocktailbar.fragments.create_cocktail.CreateCocktailViewModel
 import gsbkomar.cocktailbar.fragments.details_cocktail.CocktailDetailsViewModel
 import javax.inject.Inject
 

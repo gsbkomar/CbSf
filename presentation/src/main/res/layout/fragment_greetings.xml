@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.welcome_coctails.MyCocktailsFragment">
+    tools:context=".fragments.welcome_cocktails.GreetingsFragment">
 
    <ImageView
        android:id="@+id/iv_avatar"
@@ -16,7 +16,8 @@
        android:layout_marginStart="38dp"
        android:layout_marginEnd="38dp"
        android:layout_width="300dp"
-       android:layout_height="300dp"/>
+       android:layout_height="300dp"
+       android:contentDescription="@string/girl_png_image" />
 
     <TextView
         android:id="@+id/app_title"
@@ -36,7 +37,6 @@
         app:layout_constraintStart_toStartOf="@id/app_title"
         app:layout_constraintTop_toBottomOf="@id/app_title"
         app:layout_constraintBottom_toBottomOf="parent"
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/container"
         android:layout_width="130dp"
         android:layout_height="185dp"
@@ -60,31 +60,23 @@
             android:layout_height="36dp"
             android:background="@drawable/arrow_1"/>
 
-        <RelativeLayout
-            android:id="@+id/group_1"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btn_add_cocktail"
+            app:cardCornerRadius="100dp"
+            android:backgroundTint="@color/blue"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="105dp"
             android:layout_width="80dp"
             android:layout_height="80dp">
 
-        <View
-            android:background="@drawable/ellipse_1"
-            android:id="@+id/ellipse_1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true" />
-
             <View
-                android:layout_centerInParent="true"
-                android:background="@drawable/frame"
                 android:id="@+id/frame"
+                android:layout_gravity="center"
+                android:background="@drawable/frame"
                 android:layout_width="24dp"
                 android:layout_height="24dp"/>
 
-        </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 

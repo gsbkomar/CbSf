@@ -14,10 +14,10 @@ class CocktailsRepositoryImpl @Inject constructor(app: Application) : CocktailsR
 
     private val db = CocktailsDataBase.getInstance(app)
     override suspend fun getAllCocktails(): List<Cocktail>  {
-        val list = db.cocktailDao.getAll().map {
-            val ingredient = db.ingredientDao.getIngredientsByCocktailId(it.id).map { it.ingredient }
-            it.toEntity(ingredient)
-        }
+        var list = db.cocktailDao.getAll().map {
+                val ingredient = db.ingredientDao.getIngredientsByCocktailId(it.id).map { ingredientDto ->  ingredientDto.ingredient }
+                it.toEntity(ingredient)
+            }
         return list
     }
     override suspend fun getCocktailById(id: Long): Cocktail {

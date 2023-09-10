@@ -13,6 +13,7 @@ import gsbkomar.data.models.IngredientDto
 @Database(
     entities = [CocktailDto::class, IngredientDto::class],
     version = 1,
+    exportSchema = false
 )
 
 abstract class CocktailsDataBase : RoomDatabase() {

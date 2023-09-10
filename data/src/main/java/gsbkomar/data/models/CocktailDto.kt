@@ -2,6 +2,8 @@ package gsbkomar.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.Gson
+import com.google.gson.TypeAdapter
 
 @Entity
 data class CocktailDto(

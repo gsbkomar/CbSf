@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import gsbkomar.cocktailbar.databinding.RecipeItemBinding
 import javax.inject.Inject
 
@@ -32,8 +33,6 @@ class RecipeListAdapter @Inject constructor(
                 onClick(position)
             }
         }
-
-        // holder.binding.root.setOnClickListener { onClick(position) }
     }
 }
 
@@ -52,3 +51,5 @@ class DifUtilCallBack : DiffUtil.ItemCallback<String>() {
         return oldItem == newItem
     }
 }
+
+class RecipeViewHolder(val binding: RecipeItemBinding) : RecyclerView.ViewHolder(binding.root)

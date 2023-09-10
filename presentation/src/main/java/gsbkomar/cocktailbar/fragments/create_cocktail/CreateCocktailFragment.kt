@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
@@ -24,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import gsbkomar.cocktailbar.R
 import gsbkomar.cocktailbar.State
 import gsbkomar.cocktailbar.databinding.FragmentCreateCocktailBinding
+import gsbkomar.cocktailbar.extensions.setBackPressed
 import gsbkomar.cocktailbar.factory.CreateCocktailViewModelFactory
 import gsbkomar.cocktailbar.fragments.create_cocktail.adapter.RecipeListAdapter
 import gsbkomar.cocktailbar.fragments.create_cocktail.dialog.AddIngredientDialogFragment
@@ -75,13 +75,7 @@ class CreateCocktailFragment @Inject constructor() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true /* enabled by default */) {
-                override fun handleOnBackPressed() {
-                }
-            }
-
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+        setBackPressed(null)
 
         if (position != null) {
             initEditListeners()

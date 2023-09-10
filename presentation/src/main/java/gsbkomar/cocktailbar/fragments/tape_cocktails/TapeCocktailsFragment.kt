@@ -1,15 +1,12 @@
 package gsbkomar.cocktailbar.fragments.tape_cocktails
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,12 +14,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import gsbkomar.cocktailbar.R
 import gsbkomar.cocktailbar.State
 import gsbkomar.cocktailbar.databinding.FragmentTapeCocktailsBinding
+import gsbkomar.cocktailbar.extensions.setBackPressed
 import gsbkomar.cocktailbar.factory.TapeCocktailsViewModelFactory
 import gsbkomar.cocktailbar.fragments.tape_cocktails.adapter.CocktailsListAdapter
 import gsbkomar.domain.models.Cocktail
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class TapeCocktailsFragment @Inject constructor() : Fragment() {
@@ -53,13 +50,7 @@ class TapeCocktailsFragment @Inject constructor() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val callback: OnBackPressedCallback =
-            object : OnBackPressedCallback(true /* enabled by default */) {
-                override fun handleOnBackPressed() {
-                }
-            }
-
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+        setBackPressed(null)
 
         checkStateInfo()
 
