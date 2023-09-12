@@ -1,5 +1,7 @@
 package gsbkomar.cocktailbar.fragments.details_cocktail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,8 +25,6 @@ import gsbkomar.domain.models.Cocktail
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val ARG_PARAM = "position"
-
 @AndroidEntryPoint
 class CocktailDetailsFragment @Inject constructor() : Fragment() {
 
@@ -44,7 +44,7 @@ class CocktailDetailsFragment @Inject constructor() : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            position = it.getInt(ARG_PARAM)
+            position = it.getInt(KEY_POSITION)
         }
     }
 
@@ -67,22 +67,36 @@ class CocktailDetailsFragment @Inject constructor() : Fragment() {
         lifecycleScope.launch {
             cocktail = viewModel.getAllCocktails()
             ingredients = cocktail[position].ingredients
-            val uri = cocktail[position].photo.toUri()
-
-            with(binding) {
-                Glide.with(requireContext())
-                    .load(uri)
-                    .into(photo)
-                description.text = cocktail[position].description
-                cocktailName.text = cocktail[position].name
-                recipe.text = "   Recipe:\n ${cocktail[position].recipe}"
-                btnEdit.setOnClickListener {
-                    findNavController().navigate(
-                        R.id.action_cocktailDetailsFragment_to_createCocktailFragment,
-                        Bundle().apply { putInt("position", position) })
-                }
-            }
+            initListeners(cocktail[position].photo.toUri())
             setIngredientsList()
+        }
+    }
+
+    private fun initListeners(uri: Uri) = with(binding) {
+        Glide.with(requireContext())
+            .load(uri)
+            .into(photo)
+        val currentCocktail = cocktail[position]
+        description.text = currentCocktail.description
+        cocktailName.text = currentCocktail.name
+        recipe.text = currentCocktail.recipe
+        btnEdit.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_cocktailDetailsFragment_to_createCocktailFragment,
+                Bundle().apply { putInt(KEY_POSITION, position) })
+        }
+
+        cvShare.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND).apply {
+                type = MIME_TYPE_TEXT
+                putExtra(Intent.EXTRA_TEXT,
+                    getString(R.string.share_name, currentCocktail.name) +
+                            getString(R.string.share_description, currentCocktail.description) +
+                            getString(R.string.share_recipe, currentCocktail.recipe))
+            }
+            if (context?.let { context -> intent.resolveActivity(context.packageManager) } != null) {
+                startActivity(intent)
+            }
         }
     }
 
@@ -129,12 +143,7 @@ class CocktailDetailsFragment @Inject constructor() : Fragment() {
     }
 
     companion object {
-        @JvmStatic
-        fun newInstance(param: Int) =
-            CocktailDetailsFragment().apply {
-                arguments = Bundle().apply {
-                    getInt(ARG_PARAM, param)
-                }
-            }
+        const val MIME_TYPE_TEXT = "text/plain"
+        const val KEY_POSITION = "position"
     }
 }

@@ -8,14 +8,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_loading"
-            app:lottie_loop="true"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            app:lottie_loop="true" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_photo"
@@ -32,20 +36,20 @@
                 android:id="@+id/photo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:scaleType="fitXY" />
+                android:scaleType="fitXY"
+                android:contentDescription="@string/cocktail_photo_description" />
 
-            <View
+            <ImageView
                 android:id="@+id/icon_camera"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
-                android:background="@drawable/frame_1" />
+                android:background="@drawable/frame_1"
+                android:contentDescription="@string/camera_icon_description" />
 
         </androidx.cardview.widget.CardView>
 
-        <com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/text_field"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
@@ -76,7 +80,7 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/description"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
@@ -144,9 +148,10 @@
             android:src="@drawable/add_recipe"
             app:layout_constraintBottom_toBottomOf="@id/scroll_recipe"
             app:layout_constraintStart_toEndOf="@id/scroll_recipe"
-            app:layout_constraintTop_toTopOf="@id/scroll_recipe" />
+            app:layout_constraintTop_toTopOf="@id/scroll_recipe"
+            android:contentDescription="@string/add_icon_description" />
 
-        <com.google.android.material.textfield.TextInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/recipe"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"

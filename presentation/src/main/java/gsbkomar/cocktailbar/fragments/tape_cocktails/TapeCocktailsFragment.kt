@@ -30,7 +30,7 @@ class TapeCocktailsFragment @Inject constructor() : Fragment() {
     private var cocktailsListAdapter = CocktailsListAdapter(this) {
         findNavController().navigate(
             R.id.action_tapeCocktailsFragment_to_cocktailDetailsFragment,
-            Bundle().apply { putInt("position", it) })
+            Bundle().apply { putInt(KEY_POSITION, it) })
     }
 
     private var cocktails: List<Cocktail> = listOf()
@@ -58,7 +58,9 @@ class TapeCocktailsFragment @Inject constructor() : Fragment() {
             cocktails = viewModel.getAllCocktails()
         }
 
-        binding.btnAdd.setOnClickListener { findNavController().navigate(R.id.action_tapeCocktailsFragment_to_createCocktailFragment) }
+        binding.btnAdd.setOnClickListener {
+           findNavController().navigate(R.id.action_tapeCocktailsFragment_to_createCocktailFragment)
+        }
 
         setTapeInfo()
     }
@@ -99,5 +101,9 @@ class TapeCocktailsFragment @Inject constructor() : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val KEY_POSITION = "position"
     }
 }

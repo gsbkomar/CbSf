@@ -23,5 +23,15 @@
     <string name="add">Add</string>
     <string name="delimiter">―</string>
     <string name="girl_png_image">Girl png image</string>
+    <string name="share">Share</string>
+    <string name="cocktail_photo_description">Cocktail photo</string>
+    <string name="share_icon_image_description">Share icon image</string>
+    <string name="cocktail_information">Cocktail information</string>
+    <string name="recipe_title">Recipe:</string>
+    <string name="share_name">"I share a cocktail with a name is %1$s, "</string>
+    <string name="share_description">"its description is %1$s "</string>
+    <string name="share_recipe">and recipe is %1$s</string>
+    <string name="camera_icon_description">Camera icon</string>
+    <string name="add_icon_description">Add ingredient icon button</string>
 
 </resources>
